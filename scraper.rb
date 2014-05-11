@@ -10,13 +10,9 @@ class Diputados
   def per_person profile_url, uid, party, current_stand
     agent = Mechanize.new
     profile_page = agent.get(profile_url)
-    profile_img = profile_page.at('#contenido > article > img')[:src].gsub('./manager/.','http://congreso.gob.gt/manager')
     profile = profile_page.at('#datos_contacto #votos').search('li')
+    profile_img = profile_page.at('#contenido > article > img')[:src].gsub('./manager/.','http://congreso.gob.gt/manager')
     
-    puts '+++++++'
-    p profile_img
-    puts '+++++++'
-
     record = {
       "uid" => uid,
       "name" => (profile[0].inner_text).gsub('Nombre:','').squeeze(' ').strip,
@@ -25,15 +21,15 @@ class Diputados
       "email" => '', #(profile[1].inner_text).gsub('E-mail:','').squeeze(' ').strip, #Can't scrape this value, it's protected by Cloudflare http://www.cloudflare.com/email-protection
       "phone" => (profile[2].inner_text).gsub('Telefono de Oficina:','').strip,
       "address" => (profile[3].inner_text).gsub('Direccion de Oficina:','').strip,
-      "url" => profile_url
-      #"image" => 'http://congreso.gob.gt/manager' + profile_img['src']
+      "url" => profile_url,
+      "image" => profile_img
     }
 
     #puts '<---------------'
     #puts record
     #puts '--------------/>'
-    #ScraperWiki.save_sqlite(["uid"], record)
-    #puts "Adds new record " + record['name']
+    ScraperWiki.save_sqlite(["uid"], record)
+    puts "Adds new record " + record['name']
   end
 
   # Obtains the profiles
