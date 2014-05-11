@@ -22,7 +22,7 @@ class Diputados
       "current_stand" => current_stand,
       "email" => '', #(profile[1].inner_text).gsub('E-mail:','').squeeze(' ').strip, #Can't scrape this value, it's protected by Cloudflare http://www.cloudflare.com/email-protection
       "phone" => (profile[2].inner_text).gsub('Teléfono de Oficina:','').strip,
-      "address" => (profile[3].inner_text).gsub('Direccion de Oficina:','').strip,
+      "address" => (profile[3].inner_text).gsub('Dirección de Oficina:','').strip,
       "url" => profile_url,
       "image" => profile_img,
       "birth_date" => profile_extra_data.search('p')[8].inner_text.gsub('Fecha de Nacimiento: ','')
@@ -49,7 +49,6 @@ class Diputados
       @current_stand = (li.search('td')[3]).inner_text
       url = (li.search('td')[1]).at('a')["href"]
       per_person url, @uid, @party, @current_stand
-      exit
       # exit # for fast testing, only the first parliamentarian
     end
   end
