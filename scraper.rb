@@ -14,7 +14,7 @@ class Diputados
     profile = profile_page.at('#datos_contacto #votos').search('li')
     
     puts '+++++++'
-    p profile_img.['src']
+    p profile_img['src']
     puts '+++++++'
 
     record = {
@@ -26,7 +26,7 @@ class Diputados
       "phone" => (profile[2].inner_text).gsub('Telefono de Oficina:','').strip,
       "address" => (profile[3].inner_text).gsub('Direccion de Oficina:','').strip,
       "url" => profile_url
-      #"image" => 'http://congreso.gob.gt/manager' + profile_img.get('src')
+      #"image" => 'http://congreso.gob.gt/manager' + profile_img['src']
     }
 
     #puts '<---------------'
