@@ -1,6 +1,3 @@
-# This is a template for a Ruby scraper on Morph (https://morph.io)
-# including some code snippets below that you should find helpful
-
 require 'scraperwiki'
 require 'mechanize'
 
@@ -10,7 +7,7 @@ class Diputados
   def per_person profile_url, uid, party, current_stand
     agent = Mechanize.new
     profile_page = agent.get(profile_url)
-    profile_page.encoding = 'utf-8'
+    profile_page.encoding = 'ISO-8859-1'
     profile = profile_page.at('#datos_contacto #votos').search('li')
     profile_img = profile_page.at('#contenido > article > img')[:src].gsub('./manager/.','http://congreso.gob.gt/manager')
     
@@ -51,19 +48,6 @@ class Diputados
     end
   end
 end
-
-# # Find somehing on the page using css selectors
-# p page.at('div.content')
-#
-# # Write out to the sqlite database using scraperwiki library
-#
-# # An arbitrary query against the database
-# ScraperWiki.select("* from data where 'name'='peter'")
-
-# You don't have to do things with the Mechanize or ScraperWiki libraries. You can use whatever gems are installed
-# on Morph for Ruby (https://github.com/openaustralia/morph-docker-ruby/blob/master/Gemfile) and all that matters
-# is that your final data is written to an Sqlite database called data.sqlite in the current working directory which
-# has at least a table called data.
 
 # Runner
 if !(defined? Test::Unit::TestCase)
