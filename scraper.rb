@@ -12,6 +12,10 @@ class Diputados
     profile_page = agent.get(profile_url)
     profile_img = profile_page.at('#contenido').search('article > img')
     profile = profile_page.at('#datos_contacto #votos').search('li')
+    
+    puts '+++++++'
+    p profile_image
+    puts '+++++++'
 
     record = {
       "uid" => uid,
@@ -24,9 +28,9 @@ class Diputados
       "url" => profile_url
     }
 
-    puts '<---------------'
-    puts record
-    puts '--------------/>'
+    #puts '<---------------'
+    #puts record
+    #puts '--------------/>'
     #ScraperWiki.save_sqlite(["uid"], record)
     #puts "Adds new record " + record['name']
   end
