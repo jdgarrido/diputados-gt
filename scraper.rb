@@ -10,6 +10,7 @@ class Diputados
   def per_person profile_url, uid, party, current_stand
     agent = Mechanize.new
     profile_page = agent.get(profile_url)
+    profile_img = profile_page.at('#contenido').search('article > img')
     profile = profile_page.at('#datos_contacto #votos').search('li')
 
     record = {
