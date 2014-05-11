@@ -10,7 +10,7 @@ class Diputados
   def per_person profile_url, uid, party, current_stand
     agent = Mechanize.new
     profile_page = agent.get(profile_url)
-    profil_page.encoding = 'utf-8'
+    profile_page.encoding = 'utf-8'
     profile = profile_page.at('#datos_contacto #votos').search('li')
     profile_img = profile_page.at('#contenido > article > img')[:src].gsub('./manager/.','http://congreso.gob.gt/manager')
     
