@@ -25,7 +25,7 @@ class Diputados
       "address" => (profile[3].inner_text).gsub('Dirección de Oficina:','').strip,
       "url" => profile_url,
       "image" => profile_img,
-      "birth_date" => profile_extra_data.search('p')[8].inner_text.gsub('Fecha de Nacimiento: ','')
+      "birth_date" => profile_extra_data.search('p')[2].inner_text.gsub('Fecha de Nacimiento: ','')
     }
 
     #puts '<---------------'
