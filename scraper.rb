@@ -20,7 +20,7 @@ class Diputados
       "current_stand" => current_stand,
       "email" => '', #(profile[1].inner_text).gsub('E-mail:','').squeeze(' ').strip, #Can't scrape this value, it's protected by Cloudflare http://www.cloudflare.com/email-protection
       "phone" => (profile[2].inner_text).gsub('Telefono de Oficina:','').strip,
-      "address" => (profile[3].inner_text).gsub('Dirección de Oficina:','').strip,
+      "address" => (profile[3].inner_text).gsub('Direccion de Oficina:','').strip,
       "url" => profile_url
     }
 
