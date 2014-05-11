@@ -14,7 +14,7 @@ class Diputados
     profile = profile_page.at('#datos_contacto #votos').search('li')
     
     puts '+++++++'
-    p profile_img
+    p profile_img.get('src')
     puts '+++++++'
 
     record = {
