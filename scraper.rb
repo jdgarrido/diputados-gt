@@ -3,6 +3,7 @@
 
 require 'scraperwiki'
 require 'mechanize'
+require 'active_support/all'
 
 class Diputados
 
@@ -14,9 +15,15 @@ class Diputados
     profile = profile_page.at('#datos_contacto #votos').search('li')
     profile_img = profile_page.at('#contenido > article > img')[:src].gsub('./manager/.','http://congreso.gob.gt/manager')
     profile_extra_data = profile_page.at('#contenido > article')
-    commision_1 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > p:nth-child(1)').inner_text.strip
-    commision_2 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > p:nth-child(1)').inner_text.strip
-    commision_3 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > p:nth-child(1)').inner_text.strip
+
+    commision_1 = ''
+    commision_2 = ''
+    commision_3 = ''
+    commision_4 = ''
+    commision_1 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > p:nth-child(1)').inner_text.strip if !profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > p:nth-child(1)').blank?
+    commision_2 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > p:nth-child(1)').inner_text.strip if !profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > p:nth-child(1)').blank?
+    commision_3 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > p:nth-child(1)').inner_text.strip if !profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > p:nth-child(1)').blank?
+    commision_4 = profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(5) > td:nth-child(2) > p:nth-child(1)').inner_text.strip if !profile_page.at('.acordeon > li:nth-child(3) > section:nth-child(2) > table:nth-child(1) > tr:nth-child(5) > td:nth-child(2) > p:nth-child(1)').blank?
 
     record = {
       "uid" => uid,
@@ -32,11 +39,11 @@ class Diputados
       "commisions" => commision_1 +' - '+ commision_2 +' - '+ commision_3
     }
 
-    #puts '<---------------'
+    puts '<---------------'
     puts record
-    #puts '--------------/>'
-    #ScraperWiki.save_sqlite(["uid"], record)
-    #puts "Adds new record " + record['name']
+    puts '--------------/>'
+    ScraperWiki.save_sqlite(["uid"], record)
+    puts "Adds new record " + record['name']
   end
 
   # Obtains the profiles
